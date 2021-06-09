@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		C38E85672671065F00F763F8 /* Swifter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Swifter; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38E856A2671065F00F763F8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C38E8575267108E600F763F8 /* 基础教程.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "基础教程.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				C38E85692671065F00F763F8 /* Swifter */,
+				C38E85732671086E00F763F8 /* 基础教程 */,
 				C38E85682671065F00F763F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +62,14 @@
 				C38E856A2671065F00F763F8 /* main.swift */,
 			);
 			path = Swifter;
+			sourceTree = "<group>";
+		};
+		C38E85732671086E00F763F8 /* 基础教程 */ = {
+			isa = PBXGroup;
+			children = (
+				C38E8575267108E600F763F8 /* 基础教程.playground */,
+			);
+			path = "基础教程";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
