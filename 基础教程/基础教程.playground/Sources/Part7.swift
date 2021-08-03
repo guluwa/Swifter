@@ -62,6 +62,15 @@ struct PurchasedSnack {
 }
 
 public func testThrowError() {
+    defer {
+        print("end 1")
+    }
+    defer {
+        print("end 2")
+    }
+    defer {
+        print("end 3")
+    }
     let vendingMachine = VendingMachine()
     vendingMachine.coinsDeposited = 8
     do {
