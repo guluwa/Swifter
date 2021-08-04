@@ -4,4 +4,4 @@ var greeting = "Hello, playground"
 
 let actor = Actor(name: "guluwa")
 
-testDiceGame()
+test9()

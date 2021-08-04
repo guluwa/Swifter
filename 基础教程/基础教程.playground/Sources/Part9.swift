@@ -137,3 +137,93 @@ extension Container {
         return result
     }
 }
+
+// 不透明类型
+protocol Shape {
+    func draw() -> String
+}
+
+struct Triangle: Shape {
+    var size: Int
+    func draw() -> String {
+        var result: [String] = []
+        for length in 1...size {
+            result.append(String(repeating: "*", count: length))
+        }
+        return result.joined(separator: "\n")
+    }
+}
+
+struct FlippedShape<T: Shape>: Shape {
+    var shape: T
+    func draw() -> String {
+        if shape is Square {
+            return shape.draw()
+        }
+        let lines = shape.draw().split(separator: "\n")
+        return lines.reversed().joined(separator: "\n")
+    }
+}
+
+struct JoinedShape<T: Shape, U: Shape>: Shape {
+    var top: T
+    var bottom: U
+    func draw() -> String {
+        return top.draw() + "\n" + bottom.draw()
+    }
+}
+
+struct Square: Shape, Equatable {
+    var size: Int
+    func draw() -> String {
+        let line = String(repeating: "*", count: size)
+        let result = Array<String>(repeating: line, count: size)
+        return result.joined(separator: "\n")
+    }
+}
+
+func makeTrapezoid() -> some Shape {
+    let top = Triangle(size: 2)
+    let middle = Square(size: 2)
+    let bottom = FlippedShape(shape: top)
+    return JoinedShape(top: top, bottom: JoinedShape(top: middle, bottom: bottom))
+}
+
+func flip<T: Shape>(_ shape: T) -> some Shape {
+    return FlippedShape(shape: shape)
+}
+
+func protoFlip<T: Shape>(_ shape: T) -> Shape {
+    if shape is Square {
+        return shape
+    }
+    return FlippedShape(shape: shape)
+}
+
+func join<T: Shape, U: Shape>(_ top: T, _ bottom: U) -> some Shape {
+    return JoinedShape(top: top, bottom: bottom)
+}
+
+func `repeat`<T: Shape>(shape: T, count: Int) -> some Collection {
+    return Array<T>(repeating: shape, count: count)
+}
+
+extension Array: Container {}
+
+func makeOpaqueContainer<T>(item: T) -> some Container {
+    return [item]
+}
+
+public func test9() {
+    let trapezoid = makeTrapezoid()
+    print(trapezoid.draw())
+    print("\n")
+    let smallTriangle = Triangle(size: 3)
+    print(join(smallTriangle, flip(smallTriangle)).draw())
+    let opaqueContainer = makeOpaqueContainer(item: 12)
+    let twelve = opaqueContainer[0]
+    print(type(of: twelve))
+    // let protoFlippedTriangle = protoFlip(smallTriangle)
+    // let sameThing = flip(smallTriangle)
+    // print(sameThing == protoFlippedTriangle)
+}
