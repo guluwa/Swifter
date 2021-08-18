@@ -84,6 +84,35 @@ class ShoppingListItem: RecipeIngredient {
     }
 }
 
+// Struct内存地址
+struct NodeA: CustomStringConvertible {
+    var b: NodeB?
+    var description: String {
+        withUnsafePointer(to: self) {"\($0)"} + " " + withUnsafePointer(to: b!) {"\($0)"}
+    }
+}
+
+struct NodeB: CustomStringConvertible {
+    var c: NodeC?
+    var description: String {
+        withUnsafePointer(to: self) {"\($0)"} + " " + withUnsafePointer(to: c!) {"\($0)"}
+    }
+}
+
+struct NodeC: CustomStringConvertible {
+    var description: String {
+        withUnsafePointer(to: self) {"\($0)"}
+    }
+}
+
+public func testStructPoint() {
+    var a = NodeA()
+    a.b = NodeB()
+    a.b?.c = NodeC()
+    print(a)
+    print(a.b!)
+    print(a.b!.c!)
+
 // 可失败构造器
 class Product {
     let name: String
